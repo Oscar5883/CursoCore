@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Materias</h1>
+<div class=" loader loader-default is-active" data-text="Cargando" id="spin" style="visibility: hidden"></div>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+   Agregar Materia
+</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Materia</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="txtMateria">Nombre Materia</label>
+                    <input type="text" class="form-control" id="txtMateria" placeholder="Nombre Materia">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnGuardar" onclick="GuardarMateria()" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/JsProyecto/Materia/Index.js"></script>

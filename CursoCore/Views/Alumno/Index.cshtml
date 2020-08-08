@@ -1,0 +1,62 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model DAL.CursoEscuela.Models.Alumnos
+<h1>Administrador de Alumnos </h1>
+<div class=" loader loader-default is-active" data-text = "Cargando" id="spin" style="visibility: hidden"></div>
+<div class="row">
+    <div class=" col-sm-2 col-md-4 col-lg-12">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtNombre" placeholder="Nombre">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Turno</label>
+            <div class="col-sm-10">
+                <select class="form-control form-control" id="DropTurno">
+                    <option value="0" selected="selected">Seleccione Turno</option>
+                </select>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="btn-group" role="group" aria-label="Basic example">
+
+        @*<button type="submit" class="btn btn-primary">Guardar</button>*@
+        <input id="BtnGuardar" onclick="Guardar('@Url.Content("~/Alumno/Index")')" type="button" class="btn btn-primary" value="Guardar" />
+
+        @*<button type="submit" class="btn btn-primary">Guardar</button>*@
+        <input id="BtnGuardar" onclick="ObtenerAlumnosEliminar()" type="button" class="btn btn-primary" value="Eliminar" />
+
+        @*<button type="submit" class="btn btn-primary">Guardar</button>*@
+        <input id="BtnGuardar" onclick="ObtenerAlumnos()" type="button" class="btn btn-primary" value="Mostrar Alumnos" />
+
+    </div>
+</div>
+ <br />
+<div class="row">
+    <div class="table-responsive col-sm-2 col-md-4 col-lg-12" id="divTbAlumnos" style="visibility: hidden">
+        <table class="table  table-dark" id="tblAlumno">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" name="select_all" value="1" id="example-select-all" /></th>
+                    <th>Nombre</th>
+                    <th>Matricula</th>
+                    <th>Turno</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/JsProyecto/Alumno/Index.js"></script>
