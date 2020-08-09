@@ -21,25 +21,25 @@ namespace CursoCore.Controllers
         }
         [HttpGet]
         public string ObtenerAlumnos()
-        
+
         {
             Alumno al = new Alumno();
             var res = al.ObtenerAlumnos();
-           
+
             return JsonSerializer.Serialize(res);
         }
 
         [HttpPost]
         public JsonResult Index([FromBody] Alumnos alumnos)
         {
-           
+
             Alumno al = new Alumno();
             var res = al.CrearAlumno(alumnos);
-           
+
             return Json(res);
         }
         [HttpPost]
-        public JsonResult EliminarAlumnos([FromBody]List<Alumnos> alumnos)
+        public JsonResult EliminarAlumnos([FromBody] List<Alumnos> alumnos)
         {
             Alumno al = new Alumno();
             var res = al.EliminarAlumnos(alumnos);
@@ -54,5 +54,19 @@ namespace CursoCore.Controllers
             return JsonSerializer.Serialize(res);
 
         }
-    }
+        [HttpGet]
+        public string ObtenerAlumno( int id)
+        {
+            Alumno al = new Alumno();
+            var res = al.ObtenerAlumno(id);
+            return JsonSerializer.Serialize(res);
+        }
+        [HttpPost]
+        public JsonResult Editar([FromBody] Alumnos alumnos)
+        {
+            Alumno al = new Alumno();
+            var res = al.EditarAlumno(alumnos);
+            return Json(res);
+        }
+    }   
 }

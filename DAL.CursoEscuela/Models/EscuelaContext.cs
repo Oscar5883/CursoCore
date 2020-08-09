@@ -21,14 +21,14 @@ namespace DAL.CursoEscuela.Models
         public virtual DbSet<Maestro> Maestro { get; set; }
         public virtual DbSet<Materias> Materias { get; set; }
         public virtual DbSet<Turnos> Turnos { get; set; }
-       public virtual DbSet<ObtenerAlumnos> ObtenerAlumnos { get; set; }
+        public virtual DbSet<ObtenerAlumnos> ObtenerAlumnos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server =DESKTOP-TNVIORP\\SQLEXPRESS;Database=Escuela; Trusted_Connection = True;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-TNVIORP\\SQLEXPRESS;Database=Escuela;Trusted_Connection=True;");
             }
         }
 
@@ -47,6 +47,11 @@ namespace DAL.CursoEscuela.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.IdGrupoNavigation)
+                    .WithMany(p => p.Alumnos)
+                    .HasForeignKey(d => d.IdGrupo)
+                    .HasConstraintName("FK_Alumnos_Grupos");
 
                 entity.HasOne(d => d.IdTurnoNavigation)
                     .WithMany(p => p.Alumnos)
@@ -83,12 +88,6 @@ namespace DAL.CursoEscuela.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.IdAlumnosNavigation)
-                    .WithMany(p => p.Grupos)
-                    .HasForeignKey(d => d.IdAlumnos)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Grupos_Alumnos");
-
                 entity.HasOne(d => d.IdMateriaNavigation)
                     .WithMany(p => p.Grupos)
                     .HasForeignKey(d => d.IdMateria)
@@ -112,6 +111,10 @@ namespace DAL.CursoEscuela.Models
             modelBuilder.Entity<Materias>(entity =>
             {
                 entity.HasKey(e => e.IdMateria);
+
+                entity.Property(e => e.ClaveMateria)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()

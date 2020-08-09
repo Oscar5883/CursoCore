@@ -14,6 +14,7 @@ namespace DAL.CursoEscuela.Models
 
         public int IdMateria { get; set; }
         public string Nombre { get; set; }
+        public string ClaveMateria { get; set; }
 
         public virtual ICollection<Calificaciones> Calificaciones { get; set; }
         public virtual ICollection<Grupos> Grupos { get; set; }

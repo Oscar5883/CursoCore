@@ -10,6 +10,9 @@ namespace DBL.CursoEscuela
         public string GuardarMateria(Materias materias)
         {
             DAL.CursoEscuela.Materia _Materia = new DAL.CursoEscuela.Materia();
+            int matricula = Convert.ToInt32(_Materia.ObtenerClaveMateria());
+            string nuevaClaveMateria = matricula == 0 ? string.Format("{0:D5}", 1) : string.Format("{0:D5}", matricula + 1);
+            materias.ClaveMateria = nuevaClaveMateria;
             string mensaje = string.Empty;
             if (_Materia.CrearMateria(materias))
             {
@@ -21,6 +24,12 @@ namespace DBL.CursoEscuela
                 mensaje = "Ocurrio un Erro al Crear la Materia";
             }
             return mensaje;
+        }
+        public List<Materias> ObtenerMaterias()
+        {
+
+            DAL.CursoEscuela.Materia materia = new DAL.CursoEscuela.Materia();
+            return materia.ObtenerMaterias();
         }
     }
 }

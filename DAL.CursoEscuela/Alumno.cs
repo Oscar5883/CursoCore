@@ -96,5 +96,35 @@ namespace DAL.CursoEscuela
                 return UltMatricula == null ? "0" : UltMatricula.Matricula;
             }
         }
+        public Alumnos ObtenerAlumno(int Id)
+        {
+            using (var context = new EscuelaContext())
+            {
+               return context.Alumnos.Where(x => x.IdAlumno == Id).FirstOrDefault();
+            }
+        }
+        public bool Editar(Alumnos alumno)
+        {
+            bool estatus = true;
+            try
+            {
+                using (var context = new EscuelaContext())
+                {
+                    var res = context.Alumnos.Where(x => x.IdAlumno == alumno.IdAlumno).FirstOrDefault();
+                    if (res != null)
+                    {
+                        res.Nombre = alumno.Nombre;
+                        res.IdTurno = alumno.IdTurno;
+                        context.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                estatus = false;
+                throw ex;
+            }
+            return estatus;
+        }
     }
 }

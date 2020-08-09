@@ -7,8 +7,30 @@
 <div class=" loader loader-default is-active" data-text="Cargando" id="spin" style="visibility: hidden"></div>
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-   Agregar Materia
+ 
+    <i class="fa fa-address-card-o fa-lg" aria-hidden="true"></i>
 </button>
+<br/>
+<br/>
+<div class="row">
+    <div class="table-responsive col-sm-2 col-md-4 col-lg-12" id="divTbMateria" style="visibility: hidden">
+        <table class="table  table-dark" id="tbMaterias">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" name="select_all" value="1" id="example-select-all" /></th>
+                    <th>Clave Materia</th>
+                    <th>Materia</th>
+                    <th></th>
+                   
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

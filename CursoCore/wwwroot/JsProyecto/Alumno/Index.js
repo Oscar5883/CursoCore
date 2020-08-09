@@ -1,5 +1,8 @@
-﻿var tbalumno;
+﻿
+
+var tbalumno;
 var ArrValidaFormulario = [];
+var idEditar;
 
 
 function Guardar(Url) {
@@ -74,7 +77,8 @@ function TablaAlumnos(Data)
                  { "data": null, defaultContent:''},
                  { "data": "Nombre" },
                  { "data": "Matricula" },
-                 {"data":"Descripcion"}
+                 { "data": "Descripcion" },
+                 {"data":null,defaultContent:''}
              ],
              order: [[1, "asc"]],
              columnDefs: [
@@ -87,6 +91,14 @@ function TablaAlumnos(Data)
                      {
                          return '<input type="checkbox" name="id[]" value="' + $('<div/>').text(data.IdAlumno).html() + '">';
                      }
+                 },
+                 {
+                     targets: 4,
+                     className: 'dt-body-center',
+                     render: function (data, type, full, meta)
+                     {
+                         return '<button type="button" class="btn btn-primary"  onclick="Editar(' + data.IdAlumno+')"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
+                     } 
                  },
             ], retrieve: true,
             select: {
@@ -160,6 +172,12 @@ function LimpiarPantalla()
     document.getElementById("txtNombre").value = ""
     document.getElementById("DropTurno").value="0"
 }
+function LimpiarModal()
+{
+    document.getElementById("txtNombreModal").value = ""
+    document.getElementById("DropTurnoModal").options.length = 0;
+    
+}
 function ValidaFormulario()
 {
     if (ArrValidaFormulario.length != 0)
@@ -175,6 +193,124 @@ function ValidaFormulario()
    
 
     return ArrValidaFormulario;
+
+}
+function ValidarFormularioEdicion()
+{
+    if (ArrValidaFormulario.length != 0) {
+        ArrValidaFormulario.length = 0
+    }
+    if (document.getElementById("DropTurnoModal").value == "0") {
+        ArrValidaFormulario.push({ Mensaje: "Seleccione un Turno" })
+    }
+    if (document.getElementById("txtNombreModal").value == "") {
+        ArrValidaFormulario.push({ Mensaje: "Campo Nombre Requerido" })
+    }
+
+
+    return ArrValidaFormulario;
+}
+function ObtenerAlumno(Id)
+{
+    Mostrarspiner();
+    fetch("/Alumno/ObtenerAlumno?Id="+Id+"") // 1
+        .then(response => response.json()) // 2
+        .then(AlumnoJson => {
+
+            var data = AlumnoJson
+            LlenarmodalEditar(data);
+        }); // 3
+
+}
+function LlenarmodalEditar(Datos)
+{
+    document.getElementById('txtNombreModal').value = Datos.Nombre;
+    document.getElementById("DropTurnoModal").selectedIndex = Datos.IdTurno;
+  
+
+}
+function Editar(Id)
+{
+    LlenarDroplistTurnoModal()
+    ObtenerAlumno(Id);
+    $('#ModalAlumno').modal()
+    idEditar = Id;
+
+    
+}
+function LlenarDroplistTurnoModal()
+{
+    fetch("/Alumno/ObtenerTurno") // 1
+        .then(response => response.json()) // 2
+        .then(Turnos => {
+            var dropdown = document.getElementById("DropTurnoModal");
+
+            for (var i = 0; i < Turnos.length; i++) {
+                var option = document.createElement("option");
+                option.text = Turnos[i].Descripcion;
+                option.value = Turnos[i].IdTurno;
+                dropdown.add(option);
+            }
+            Ocultarspine()
+
+        });
+
+}
+document.getElementById("btnEditar").addEventListener("click", function () {
+    
+    GuardarEdicion();
+});
+document.getElementById("btnCerrar").addEventListener("click", function () {
+    document.getElementById('txtNombreModal').value = ""
+   
+    document.getElementById("DropTurnoModal").options.length = 0;
+});
+function GuardarEdicion() {
+
+   
+    var validacion = ValidarFormularioEdicion()
+    let mensaje = "";
+    if (validacion.length != 0) {
+        for (i = 0; i < validacion.length; i++) {
+            mensaje = mensaje + "-" + validacion[i].Mensaje + "</br>"
+        }
+        alertify.warning(mensaje)
+
+    }
+    else {
+        Mostrarspiner();
+        var nombre = document.getElementById("txtNombreModal").value;
+
+        var e = document.getElementById("DropTurnoModal");
+        var IdTurno = e.options[e.selectedIndex].value;
+
+        var ObjEditar = { Nombre: nombre, IdTurno: IdTurno, IdAlumno: idEditar};
+        fetch("/Alumno/Editar", {
+            method: 'post',
+            headers: {
+
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify(ObjEditar)
+        }).then(function (response) {
+            if (response.ok) { return response.text() }
+            else { alertify.error('Error al procesar'); }
+
+        }).then(function (Data) {
+            if (Data != undefined) {
+                alertify.success(JSON.parse(Data))
+                ObtenerAlumnos();
+                LimpiarModal();
+                $('#ModalAlumno').modal('hide');
+                Ocultarspine();
+            }
+            else {
+                document.location.href = "../Alumno/Index";
+            }
+        })
+
+    }
 
 }
 document.addEventListener("DOMContentLoaded", function () {

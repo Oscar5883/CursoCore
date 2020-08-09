@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DAL.CursoEscuela.Models;
 using DBL.CursoEscuela;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace CursoCore.Controllers
 {
@@ -20,6 +21,13 @@ namespace CursoCore.Controllers
             Materia mat = new Materia();
             var res = mat.GuardarMateria(materia);
             return Json(res);
+        }
+        [HttpGet]
+        public string ObtenerMaterias()
+        {
+            Materia mat = new Materia();
+            var res = mat.ObtenerMaterias();
+            return JsonSerializer.Serialize(res);
         }
     }
 }

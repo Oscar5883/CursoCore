@@ -60,6 +60,25 @@ namespace DBL.CursoEscuela
             return _Alumno.ObtenerTurnos();
 
         }
+        public Alumnos ObtenerAlumno(int Id)
+        {
+            DAL.CursoEscuela.Alumno _alumno = new DAL.CursoEscuela.Alumno();
+            return _alumno.ObtenerAlumno(Id);
+        }
+        public string EditarAlumno(Alumnos alumno)
+        {
+            DAL.CursoEscuela.Alumno _alumno = new DAL.CursoEscuela.Alumno();
+            string mensaje = string.Empty;
+            if (_alumno.Editar(alumno))
+            {
+                mensaje = "Alumno Actualizado Correctamente";
+            }
+            else
+            {
+                mensaje = "Error al Actualizar Alumno";
+            }
+            return mensaje;
+        }
 
     }
 }
