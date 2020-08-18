@@ -55,7 +55,7 @@ namespace CursoCore.Controllers
 
         }
         [HttpGet]
-        public string ObtenerAlumno( int id)
+        public string ObtenerAlumno(int id)
         {
             Alumno al = new Alumno();
             var res = al.ObtenerAlumno(id);

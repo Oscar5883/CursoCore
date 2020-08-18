@@ -13,36 +13,68 @@
     <link rel="stylesheet" href="~/js/DataTable/datatables.css" />
     <link rel="stylesheet" href="~/JsProyecto/Utilerias/css-loader-master/css-loader-master/dist/css-loader.css" />
     <link rel="stylesheet" href="~/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.css"/>
+    <link rel="stylesheet" href="~/Menu/css/style.css"/>
     
     
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CursoCore</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+
+
+
+
+
+
+
+
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CursoCore</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>*@
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar">
+            <div class="custom-menu">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                    <i class="fa fa-bars"></i>
+                    <span class="sr-only">Toggle Menu</span>
+                </button>
+            </div>
+            <h1><a href="../Home/Index" class="logo">Escuela</a></h1>
+            <ul class="list-unstyled components mb-5" id="ListaMenu">
+            
+            </ul>
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content" class="p-4 p-md-5 pt-5">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
     </div>
+    @*<div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>Julio20
+        </div>*@
 
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -55,6 +87,9 @@
     <script src="~/js/AlertifyJs/alertify.js"></script>
     <script src="~/js/DataTable/datatables.js"></script>
     <script src="~/JsProyecto/Utilerias/Utilerias.js"></script>
+    <script src="~/Menu/js/popper.js"></script>
+    <script src="~/Menu/js/main.js"></script>
+    <script src="~/JsProyecto/Menu/Menu.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

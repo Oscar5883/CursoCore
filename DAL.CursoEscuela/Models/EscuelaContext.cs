@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using DAL.CursoEscuela.Models.StoredProcedure;
 
 namespace DAL.CursoEscuela.Models
 {
@@ -20,8 +21,11 @@ namespace DAL.CursoEscuela.Models
         public virtual DbSet<Grupos> Grupos { get; set; }
         public virtual DbSet<Maestro> Maestro { get; set; }
         public virtual DbSet<Materias> Materias { get; set; }
+        public virtual DbSet<Menu> Menu { get; set; }
+        public virtual DbSet<SubMenus> SubMenus { get; set; }
         public virtual DbSet<Turnos> Turnos { get; set; }
         public virtual DbSet<ObtenerAlumnos> ObtenerAlumnos { get; set; }
+        public virtual DbSet<ObtenerMenusSubMenus> ObtenerMenusSubMenus { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -120,6 +124,41 @@ namespace DAL.CursoEscuela.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Menu>(entity =>
+            {
+                entity.HasKey(e => e.IdMenu);
+
+                entity.Property(e => e.Icono)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Ruta)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<SubMenus>(entity =>
+            {
+                entity.HasKey(e => e.IdSubMenu);
+
+                entity.Property(e => e.Ruta)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdMenuNavigation)
+                    .WithMany(p => p.SubMenus)
+                    .HasForeignKey(d => d.IdMenu)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SubMenus_Menu");
             });
 
             modelBuilder.Entity<Turnos>(entity =>

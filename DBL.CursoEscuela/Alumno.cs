@@ -10,14 +10,14 @@ namespace DBL.CursoEscuela
     
    public class Alumno
     {
-       
+
 
         public string CrearAlumno(Alumnos alumno)
         {
             DAL.CursoEscuela.Alumno _Alumno = new DAL.CursoEscuela.Alumno();
             string mensaje = string.Empty;
             int matricula = Convert.ToInt32(_Alumno.ObtenerMatriculaActual());
-            string nuevaMatricula=matricula == 0 ? string.Format("{0:D5}", 1) : string.Format("{0:D5}", matricula + 1);
+            string nuevaMatricula = matricula == 0 ? string.Format("{0:D5}", 1) : string.Format("{0:D5}", matricula + 1);
             alumno.Matricula = nuevaMatricula;
 
             if (_Alumno.CrearAlumno(alumno))
@@ -29,7 +29,7 @@ namespace DBL.CursoEscuela
                 mensaje = "Error al Generar Alumno";
             }
             return mensaje;
-        
+
         }
 
         public List<ObtenerAlumnos> ObtenerAlumnos()
@@ -37,7 +37,7 @@ namespace DBL.CursoEscuela
             DAL.CursoEscuela.Alumno _Alumno = new DAL.CursoEscuela.Alumno();
             return _Alumno.ObtenerAlumnos();
 
-        
+
         }
         public string EliminarAlumnos(List<Alumnos> alumnos)
         {
@@ -49,10 +49,10 @@ namespace DBL.CursoEscuela
             }
             else
             {
-                mensaje = "Error al Eliminar Alumno(s)";            
+                mensaje = "Error al Eliminar Alumno(s)";
             }
             return mensaje;
-        
+
         }
         public List<Turnos> OntenerTurnos()
         {

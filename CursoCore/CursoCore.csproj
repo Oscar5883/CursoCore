@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\js\DataTable\" />
+    <Folder Include="wwwroot\Menu\" />
   </ItemGroup>
 
 

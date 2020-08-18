@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CursoCore.Models;
+using DAL.CursoEscuela.Models;
+using DBL.CursoEscuela;
+using System.Text.Json;
 
 namespace CursoCore.Controllers
 {
@@ -18,10 +21,15 @@ namespace CursoCore.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult  Index()
         {
-           
             return View();
+        }
+        public string ObtenerMenu()
+        {
+            DBL.CursoEscuela.Menu menu = new DBL.CursoEscuela.Menu();
+            var res = menu.ObtenerMenu();
+            return JsonSerializer.Serialize(res);
         }
 
         public IActionResult Privacy()

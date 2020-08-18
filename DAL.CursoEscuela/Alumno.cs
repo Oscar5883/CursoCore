@@ -21,8 +21,8 @@ namespace DAL.CursoEscuela
         }
 
         public Alumno()
-        { 
-        
+        {
+
         }
         public bool CrearAlumno(Alumnos alumno)
         {
@@ -34,13 +34,13 @@ namespace DAL.CursoEscuela
                     context.Alumnos.Add(alumno);
                     context.SaveChanges();
                 }
-                   
+
             }
             catch (Exception ex)
             {
                 status = false;
                 throw ex;
-            
+
             }
             return status;
         }
@@ -52,24 +52,24 @@ namespace DAL.CursoEscuela
             using (var context = new EscuelaContext())
             {
 
-                var res= context.ObtenerAlumnos.FromSqlRaw("EXECUTE  sp_ObtieneAlumnos").ToList();
+                var res = context.ObtenerAlumnos.FromSqlRaw("EXECUTE  sp_ObtieneAlumnos").ToList();
                 return res;
             }
-            
+
         }
         public bool EliminarAlumnos(List<Alumnos> alumnos)
         {
             bool estatus = true;
             try
             {
-                using (var context=new EscuelaContext())
+                using (var context = new EscuelaContext())
                 {
                     foreach (var alumno in alumnos)
                     {
-                       context.Alumnos.Where(a => a.IdAlumno == alumno.IdAlumno).ToList().ForEach(e => context.Alumnos.Remove(e));
+                        context.Alumnos.Where(a => a.IdAlumno == alumno.IdAlumno).ToList().ForEach(e => context.Alumnos.Remove(e));
                         context.SaveChanges();
                     }
-                    
+
                 }
             }
             catch (Exception ex)
@@ -84,9 +84,9 @@ namespace DAL.CursoEscuela
             using (var context = new EscuelaContext())
             {
                 return context.Turnos.ToList();
-            
+
             }
-        
+
         }
         public string ObtenerMatriculaActual()
         {
@@ -100,7 +100,7 @@ namespace DAL.CursoEscuela
         {
             using (var context = new EscuelaContext())
             {
-               return context.Alumnos.Where(x => x.IdAlumno == Id).FirstOrDefault();
+                return context.Alumnos.Where(x => x.IdAlumno == Id).FirstOrDefault();
             }
         }
         public bool Editar(Alumnos alumno)
