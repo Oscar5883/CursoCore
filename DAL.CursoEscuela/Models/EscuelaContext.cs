@@ -1,7 +1,7 @@
 ﻿using System;
+using DAL.CursoEscuela.Models.StoredProcedure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using DAL.CursoEscuela.Models.StoredProcedure;
 
 namespace DAL.CursoEscuela.Models
 {
@@ -22,8 +22,13 @@ namespace DAL.CursoEscuela.Models
         public virtual DbSet<Maestro> Maestro { get; set; }
         public virtual DbSet<Materias> Materias { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
+        public virtual DbSet<Modulo> Modulo { get; set; }
+        public virtual DbSet<Operaciones> Operaciones { get; set; }
+        public virtual DbSet<Rol> Rol { get; set; }
+        public virtual DbSet<RolOperacion> RolOperacion { get; set; }
         public virtual DbSet<SubMenus> SubMenus { get; set; }
         public virtual DbSet<Turnos> Turnos { get; set; }
+        public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<ObtenerAlumnos> ObtenerAlumnos { get; set; }
         public virtual DbSet<ObtenerMenusSubMenus> ObtenerMenusSubMenus { get; set; }
 
@@ -145,6 +150,63 @@ namespace DAL.CursoEscuela.Models
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<Modulo>(entity =>
+            {
+                entity.HasKey(e => e.IdModulo);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Operaciones>(entity =>
+            {
+                entity.HasKey(e => e.IdOperacion);
+
+                entity.Property(e => e.IdOperacion).ValueGeneratedNever();
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdModuloNavigation)
+                    .WithMany(p => p.Operaciones)
+                    .HasForeignKey(d => d.IdModulo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Operaciones_Modulo");
+            });
+
+            modelBuilder.Entity<Rol>(entity =>
+            {
+                entity.HasKey(e => e.IdRol);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<RolOperacion>(entity =>
+            {
+                entity.HasKey(e => e.IdRolOpercion);
+
+                entity.ToTable("Rol_Operacion");
+
+                entity.HasOne(d => d.IdOperacionNavigation)
+                    .WithMany(p => p.RolOperacion)
+                    .HasForeignKey(d => d.IdOperacion)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Rol_Operacion_Operaciones");
+
+                entity.HasOne(d => d.IdRolNavigation)
+                    .WithMany(p => p.RolOperacion)
+                    .HasForeignKey(d => d.IdRol)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Rol_Operacion_Rol");
+            });
+
             modelBuilder.Entity<SubMenus>(entity =>
             {
                 entity.HasKey(e => e.IdSubMenu);
@@ -169,6 +231,34 @@ namespace DAL.CursoEscuela.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.HasKey(e => e.IdUsuario);
+
+                entity.Property(e => e.Contraseña)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Fecha).HasColumnType("datetime");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdRolNavigation)
+                    .WithMany(p => p.Usuario)
+                    .HasForeignKey(d => d.IdRol)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Usuario_Rol");
             });
 
             OnModelCreatingPartial(modelBuilder);

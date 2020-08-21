@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CursoCore.Filtros;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +26,16 @@ namespace CursoCore
         {
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson();
+            services.AddSession(options=> {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+            
+            });
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<VerificaSession>();
+
+            });
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +51,7 @@ namespace CursoCore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -51,7 +63,7 @@ namespace CursoCore
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Login}/{id?}");
             });
         }
     }

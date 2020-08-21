@@ -1,10 +1,11 @@
-﻿
+﻿@{
+    Layout = null;
+}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CursoCore</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/AlertifyCss/css/alertify.css" />
@@ -15,45 +16,36 @@
     <link rel="stylesheet" href="~/JsProyecto/Utilerias/css-loader-master/css-loader-master/dist/css-loader.css" />
     <link rel="stylesheet" href="~/css/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.css" />
     <link rel="stylesheet" href="~/Menu/css/style.css" />
-
-
+    <link rel="stylesheet" href="~/css/Login/Login.css" />
 </head>
 <body>
-    <header>
-    </header>
+   
 
-    <div class="wrapper d-flex align-items-stretch">
-        <nav id="sidebar">
-            <div class="custom-menu">
-                <button type="button" id="sidebarCollapse" class="btn btn-primary">
-                    <i class="fa fa-bars"></i>
-                    <span class="sr-only">Toggle Menu</span>
-                </button>
+
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <span class="fa fa-user fa-4x"></span>
+                @*<img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />*@
             </div>
-            <h1><a href="../Home/Index" class="logo">Escuela</a></h1>
-            <ul class="list-unstyled components mb-5" id="ListaMenu">
-            </ul>
 
-        </nav>
+            <!-- Login Form -->
+            <form>
+                <input type="text" id="txtlogin" class="fadeIn second" name="Usuario" placeholder="Usuario">
+                <input type="password" id="txtpassword" class="fadeIn third" name="login" placeholder="Contraseña">
+                <input type="button" class="fadeIn fourth" value="Entrar" onclick="Entrar();">
+            </form>
 
-        <!-- Page Content  -->
-        <div id="content" class="p-4 p-md-5 pt-5">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
+            <!-- Remind Passowrd -->
+            <div id="formFooter">
+                <a class="underlineHover" href="#">¿Olvidaste tu Contraseña?</a>
+            </div>
+
         </div>
     </div>
-    @*<div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>Julio20
-        </div>*@
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - CursoCore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -63,6 +55,6 @@
     <script src="~/Menu/js/popper.js"></script>
     <script src="~/Menu/js/main.js"></script>
     <script src="~/JsProyecto/Menu/Menu.js"></script>
-    @RenderSection("Scripts", required: false)
+    <script src="~/JsProyecto/Login/Login.js"></script>
 </body>
 </html>
