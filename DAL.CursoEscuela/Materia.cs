@@ -47,6 +47,29 @@ namespace DAL.CursoEscuela
                 return UltClaveMateria == null ? "0" : UltClaveMateria.ClaveMateria;
             }
         }
+        public bool EliminarMateriaDL(List<Materias> materias)
+        {
+            bool estatus = true;
+            try
+            {
+                using (var context = new EscuelaContext())
+                {
+                    foreach (var materia in materias)
+                    {
+                        context.Materias.Where(m => m.IdMateria == materia.IdMateria).ToList().ForEach(e => context.Materias.Remove(e));
+                        context.SaveChanges();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                estatus = false;
+                throw ex;
+                
+            }
+            return estatus;
+        }
 
     }
 }

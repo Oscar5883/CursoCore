@@ -31,5 +31,20 @@ namespace DBL.CursoEscuela
             DAL.CursoEscuela.Materia materia = new DAL.CursoEscuela.Materia();
             return materia.ObtenerMaterias();
         }
+        public string EliminarMateriaBL(List<Materias> materias)
+        {
+            DAL.CursoEscuela.Materia _materia = new DAL.CursoEscuela.Materia();
+            string mensaje = string.Empty;
+            if (_materia.EliminarMateriaDL(materias))
+            {
+
+                mensaje = "Materia(s) eliminadas correctamente";
+            }
+            else
+            {
+                mensaje = "Error al eliminar la(s) Materia(s)";
+            }
+            return mensaje;
+        }
     }
 }

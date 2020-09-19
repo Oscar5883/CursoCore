@@ -29,5 +29,12 @@ namespace CursoCore.Controllers
             var res = mat.ObtenerMaterias();
             return JsonSerializer.Serialize(res);
         }
+        [HttpPost]
+        public JsonResult EliminarMateria([FromBody] List<Materias> materias)
+        {
+            Materia mat = new Materia();
+            var res = mat.EliminarMateriaBL(materias);
+            return Json(res);
+        }
     }
 }

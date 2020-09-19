@@ -1,0 +1,79 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Administrador de Menús</h1>
+<div class=" loader loader-default is-active" data-text="Cargando" id="spin" style="visibility: hidden"></div>
+<div class="row">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalMenu">
+
+            <i class="fa fa-address-card-o fa-lg" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="btn btn-danger" onclick="change()">
+            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+<div class="modal fade" id="ModalMenu" tabindex="-1" role="dialog" aria-labelledby="ModalMenu" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Menú</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="txtNombre">Nombre del Menu</label>
+                    <input type="text" class="form-control" id="txtNombreMenu" placeholder="Nombre Menu">
+
+                </div>
+                <div class="form-group">
+                    <label for="txtruta">Ruta de Menu</label>
+                    <input type="text" class="form-control" id="txtRutaMenu" placeholder="Ruta Menu">
+
+                </div>
+                <div class="form-group">
+                    <label for="txtIcono">Icono de Menu</label>
+                    <input type="text" class="form-control" id="txtIconoMenu" placeholder="Icono Menu">
+
+                </div>
+                <div>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="EstatusMenu">
+                        <label class="custom-control-label" for="EstatusMenu">Activar</label>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnGuardar" onclick="GuardarMenu()" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+<div class="table-responsive col-sm-2 col-md-4 col-lg-12" id="divTbMenu" >
+    <table class="table  table-dark" id="tbMenu">
+        <thead>
+            <tr>
+                <th><input type="checkbox" name="select_all" value="1" id="example-select-all" /></th>
+                <th>Nombre</th>
+                <th>Ruta</th>
+                <th>Estado</th>
+                <th>Icono</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+</div>
+<script src="~/JsProyecto/Menu/Menu.js"></script>

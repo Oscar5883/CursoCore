@@ -1,5 +1,6 @@
 ﻿var tbMateria;
 
+
 function GuardarMateria() {
     Mostrarspiner();
     var ObjGuardar = { Nombre:document.getElementById('txtMateria').value };
@@ -74,6 +75,60 @@ function TablaMaterias(Data)
     var div = document.getElementById('divTbMateria');
     div.style.visibility = 'visible';
     Ocultarspine();
+}
+function ObtenerMateriaEliminar()
+{
+    let ArrEliminar = [];
+    if (tbMateria === undefined) {
+
+        alertify.warning('No hay datos para eliminar')
+    }
+    else {
+        tbMateria.$('input[type="checkbox"]').each(function () {
+
+            if (this.checked) {
+
+                ArrEliminar.push({ IdMateria: this.value });
+            }
+
+
+        });
+
+        if (ArrEliminar.length === 0) {
+            alertify.warning("Seleccione una Materia");
+        }
+        else {
+            EliminarMateria(ArrEliminar);
+        }
+
+    }
+}
+function EliminarMateria(eliminar)
+{
+    Mostrarspiner();
+    fetch('/Materia/EliminarMateria', {
+        method: 'post',
+        headers: {
+
+            'Accept': 'application/json; charset=utf-8',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify(eliminar)
+    }).then(function (response) {
+        if (response.ok) { return response.text() }
+        else { alertify.error('Error al procesar'); }
+
+    }).then(function (Data) {
+        if (Data != undefined) {
+            alertify.success(JSON.parse(Data))
+            ObtenerMaterias();
+            Ocultarspine();
+        }
+        else {
+            document.location.href = "../Materia/Index";
+        }
+    })
+
 }
 
 

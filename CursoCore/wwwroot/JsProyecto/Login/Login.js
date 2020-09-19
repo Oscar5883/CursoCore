@@ -17,6 +17,7 @@
         if (Data ==="") {
            
             document.location.href = "../Home/Index";
+          
             
         }
         else {

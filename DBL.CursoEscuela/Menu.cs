@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace DBL.CursoEscuela
 {
    public class Menu
@@ -15,5 +16,21 @@ namespace DBL.CursoEscuela
 
         }
 
+        public string GuardarMenu(DAL.CursoEscuela.Models.Menu menu)
+        {
+            string Mensaje = string.Empty;
+            DAL.CursoEscuela.Menu men = new DAL.CursoEscuela.Menu();
+            if (men.GuardarMenu(menu) == true)
+            {
+                Mensaje = "Menú Creado Correctamente";
+            }
+            else
+            {
+                Mensaje = "Error al Crear el Menú";
+            }
+            return Mensaje;
+        }
+
     }
+
 }

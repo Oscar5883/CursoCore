@@ -21,5 +21,25 @@ namespace DAL.CursoEscuela
             }
         }
 
+
+        public bool GuardarMenu(DAL.CursoEscuela.Models.Menu menu)
+        {
+            bool Estatus = true;
+            try
+            {
+                using (var context = new EscuelaContext())
+                {
+                    context.Menu.Add(menu);
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Estatus = false;
+                throw ex;
+            }
+            return Estatus;
+        }
+
     }
 }

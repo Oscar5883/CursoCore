@@ -17,7 +17,7 @@ namespace CursoCore.Controllers
             return View();
         }
         [HttpPost]
-        public string Acceso([FromBody]Usuario usuario)
+        public string Acceso([FromBody] Usuario usuario)
         {
             Login _login = new Login();
             string mensaje = "";
@@ -31,8 +31,14 @@ namespace CursoCore.Controllers
                 HttpContext.Session.SetString("Nombre", res.Nombre);
                 HttpContext.Session.SetString("Email", res.Email);
                 HttpContext.Session.SetString("Contraseña", res.Contraseña);
+                HttpContext.Session.SetInt32("IdRol", res.IdRol);
             }
             return (mensaje);
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
+       
     }
 }

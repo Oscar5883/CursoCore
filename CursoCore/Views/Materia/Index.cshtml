@@ -5,11 +5,17 @@
 }
 <h1>Materias</h1>
 <div class=" loader loader-default is-active" data-text="Cargando" id="spin" style="visibility: hidden"></div>
+<div class="row">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
- 
-    <i class="fa fa-address-card-o fa-lg" aria-hidden="true"></i>
-</button>
+            <i class="fa fa-address-card-o fa-lg" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="btn btn-danger" onclick="ObtenerMateriaEliminar()">
+            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
 <br/>
 <br/>
 <div class="row">
@@ -30,6 +36,8 @@
         </table>
     </div>
 </div>
+<br />
+<br />
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

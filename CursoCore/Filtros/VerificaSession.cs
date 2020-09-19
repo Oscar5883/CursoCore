@@ -13,6 +13,7 @@ namespace CursoCore.Filtros
     public class VerificaSession:ActionFilterAttribute
     {
          string Nombre, Email, Contraseña;
+         int? IdRol;
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             try
@@ -21,7 +22,8 @@ namespace CursoCore.Filtros
                 Nombre = context.HttpContext.Session.GetString("Nombre");
                 Email = context.HttpContext.Session.GetString("Email");
                 Contraseña = context.HttpContext.Session.GetString("Contraseña");
-                if (Nombre == null && Email == null && Contraseña == null)
+                IdRol = context.HttpContext.Session.GetInt32("IdRol");
+                if (Nombre == null && Email == null && Contraseña == null && IdRol==null)
                 {
                     if (context.Controller is LoginController == false)
                     {
