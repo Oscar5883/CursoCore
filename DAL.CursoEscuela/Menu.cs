@@ -40,6 +40,33 @@ namespace DAL.CursoEscuela
             }
             return Estatus;
         }
+        public bool DALEliminarMenu(List<DAL.CursoEscuela.Models.Menu> menus)
+        {
+            bool Estatus = true;
+            try
+            {
+                using (var context = new EscuelaContext())
+                {
+                    foreach (var menu in menus)
+                    {
+                        var res = context.Menu.Where(m => m.IdMenu == menu.IdMenu && m.Activo == true).FirstOrDefault();
+                        if (res != null)
+                        {
+                            res.Activo = false;
+                            context.SaveChanges();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Estatus = false;
+                throw ex;
+                
+            }
+
+            return Estatus;
+        }
 
     }
 }

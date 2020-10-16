@@ -26,5 +26,12 @@ namespace CursoCore.Controllers
             var res = menu.ObtenerMenu();
             return JsonSerializer.Serialize(res);
         }
+        [HttpPost]
+        public JsonResult EliminarMenu([FromBody] List<DAL.CursoEscuela.Models.Menu> menus)
+        {
+            DBL.CursoEscuela.Menu men = new DBL.CursoEscuela.Menu();
+            var res = men.DBLEliminarMenu(menus);
+            return Json(res);
+        }
     }
 }

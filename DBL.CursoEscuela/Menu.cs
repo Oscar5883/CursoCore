@@ -30,6 +30,20 @@ namespace DBL.CursoEscuela
             }
             return Mensaje;
         }
+        public string DBLEliminarMenu(List<DAL.CursoEscuela.Models.Menu> menus)
+        {
+            string Mensaje = string.Empty;
+            DAL.CursoEscuela.Menu men = new DAL.CursoEscuela.Menu();
+            if (men.DALEliminarMenu(menus))
+            {
+                Mensaje = "Menú Eliminado";
+            }
+            else
+            {
+                Mensaje = "Error al Eliminar";
+            }
+            return Mensaje;
+        }
 
     }
 

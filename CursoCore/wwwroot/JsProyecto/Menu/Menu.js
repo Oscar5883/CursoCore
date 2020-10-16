@@ -1,9 +1,16 @@
 ﻿
 var ArrErroresFormulario = [];
+var tbMenu;
 function GuardarMenu() {
     var ObGuardar = { Nombre: document.getElementById('txtNombreMenu').value, Activo: document.getElementById('EstatusMenu').checked==true?true:false, Ruta: document.getElementById('txtRutaMenu').value, Icono: document.getElementById('txtIconoMenu').value }
+    if (ArrErroresFormulario.length != 0) {
+        ArrErroresFormulario.length = 0;
+    }
     var Errores = ValidaFormulario();
+    let mensaje = "";
+
     if (Errores.length > 0) {
+
         for (i = 0; i < Errores.length; i++) {
             mensaje = mensaje + "-" + Errores[i].Mensaje + "</br>"
         }
@@ -64,7 +71,7 @@ function ObtenerMenus() {
 }
 function TablaMenu(Data)
 {
-    $('#tbMenu').DataTable({
+    tbMenu=$('#tbMenu').DataTable({
 
         data: Data,
         columns: [
@@ -106,11 +113,67 @@ function TablaMenu(Data)
         }
     })
 }
+function MenusEliminar()
+{
+    let ArrEliminar = [];
+    if (tbMenu === undefined) {
+
+        alertify.warning('No hay datos para eliminar')
+    }
+    else {
+        tbMenu.$('input[type="checkbox"]').each(function () {
+
+            if (this.checked) {
+
+                ArrEliminar.push({ IdMenu: this.value });
+            }
+
+
+        });
+
+        if (ArrEliminar.length === 0) {
+            alertify.warning("Seleccione un Alumno");
+        }
+        else {
+            EliminarMenu(ArrEliminar);
+        }
+
+    }
+}
+function EliminarMenu(ObjEliminar)
+{
+    Mostrarspiner();
+    fetch('/Menu/EliminarMenu', {
+        method: 'post',
+        headers: {
+
+            'Accept': 'application/json; charset=utf-8',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify(ObjEliminar)
+    }).then(function (response) {
+        if (response.ok) { return response.text() }
+        else { alertify.error('Error al procesar'); }
+
+    }).then(function (Data) {
+        if (Data != undefined) {
+            alertify.success(JSON.parse(Data))
+            ObtenerMenus();
+            Ocultarspine();
+        }
+        else {
+            document.location.href = "../Menu/Index";
+        }
+    })
+}
 
 document.addEventListener("DOMContentLoaded", function () {
 
     Mostrarspiner();
-
+    $('#example-select-all').on('click', function () {
+        var rows = tbMenu.rows({ 'search': 'applied' }).nodes();
+        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+    });
     ObtenerMenus();
     Ocultarspine();
 });
